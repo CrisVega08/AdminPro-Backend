@@ -6,21 +6,21 @@ var app = express();
 
 app.get('/:tipo/:img', (req, res, next) => {
 
-    var tipo = req.params.tipo;
-    var img = req.params.img;
+  var tipo = req.params.tipo;
+  var img = req.params.img;
 
-    var path = `./uploads/${ tipo }/${ img }`;
+  var path = `./uploads/${ tipo }/${ img }`;
 
-    fs.exists(path, existe => {
+  fs.exists(path, existe => {
 
-        if (!existe) {
-            path = './assets/no-img.jpg';
-        }
+    if (!existe) {
+      path = './assets/no-img.jpg';
+    }
 
 
-        res.sendfile(path);
+    res.sendFile(path);
 
-    });
+  });
 
 
 });

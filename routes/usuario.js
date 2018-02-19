@@ -55,8 +55,8 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
   var id = req.params.id;
   var body = req.body;
 
+  console.log("entró al alcuadlizas")
   Usuario.findById(id, (err, usuario) => {
-
 
     if (err) {
       return res.status(500).json({
@@ -74,11 +74,11 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
       });
     }
 
-
     usuario.nombre = body.nombre;
     usuario.email = body.email;
-    usuario.role = body.role;
-
+    if (body.role) usuario.role = body.role
+    if (body.role) usuario.role = body.role
+    console.log(body)
     usuario.save((err, usuarioGuardado) => {
 
       if (err) {
@@ -110,9 +110,9 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 app.post('/', (req, res) => {
 
   var body = req.body;
-
+  console.log("entró")
   var usuario = new Usuario({
-    nombre: body.nombre,
+    nombre: body.name,
     email: body.email,
     password: bcrypt.hashSync(body.password, 10),
     img: body.img,
