@@ -164,7 +164,7 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
 });
 
 // ============================================
-//   Borrar un hospital por el id
+//   Buscar un hospital por el id
 // ============================================
 app.get('/:id', mdAutenticacion.verificaToken, (req, res) => {
 

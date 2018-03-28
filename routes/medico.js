@@ -167,4 +167,40 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, res) => {
 });
 
 
+// ============================================
+//   Buscar un hospital por el id
+// ============================================
+app.get('/:id', mdAutenticacion.verificaToken, (req, res) => {
+
+  var id = req.params.id;
+
+  Medico.findById(id)
+    .populate('usuario', 'nombre img email')
+    .populate('hospital')
+    .exec((err, medico) => {
+
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          mensaje: 'Error al buscar medico',
+          errors: err
+        });
+      }
+
+      if (!medico) {
+        return res.status(400).json({
+          ok: false,
+          mensaje: 'No existe un medico con ese id',
+          errors: { message: 'No existe un medico con ese id' }
+        });
+      }
+
+      res.status(200).json({
+        ok: true,
+        medico: medico
+      });
+
+    });
+
+});
 module.exports = app;
